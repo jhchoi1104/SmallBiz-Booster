@@ -223,7 +223,6 @@
 <script setup>
 import InfoPlazaHeader from '@/components/infoplaza/InfoPlazaHeader.vue';
 import PaginationComponent from '@/components/infoplaza/pagination.vue';
-import { ref, computed } from 'vue';
 import { usePagination } from '@/stores/businessItem.js'; // usePagination 가져오기
 
 const BASEURI = '/api/infoPlaza/businessItem';
