@@ -12,8 +12,6 @@ const TotalTrendingBusinessItems = () =>
   import('@/pages/InfoPlaza/TotalTrendingBusinessItems.vue');
 const PortionTrendingBusinessItems = () =>
   import('@/pages/InfoPlaza/PortionTrendingBusinessItems.vue');
-const MylocationTrending = () =>
-  import('@/pages/InfoPlaza/MyLocatinTrending.vue');
 const CloseRatio = () => import('@/pages/InfoPlaza/CloseRatio.vue');
 const StoreInfo = () => import('@/pages/InfoPlaza/StoreInfo.vue');
 const GovernmentFund = () => import('@/pages/Infoplaza/GovernmentFund.vue');
@@ -96,11 +94,6 @@ const router = createRouter({
       path: '/infoPlaza/industry/portionTrendingBusinessItems',
       name: 'portionTrendingBusinessItems',
       component: PortionTrendingBusinessItems,
-    },
-    {
-      path: '/infoPlaza/industry/mylocationTrending',
-      name: 'mylocationTrending',
-      component: MylocationTrending,
     },
     {
       path: '/infoPlaza/industry/closeRatio',
