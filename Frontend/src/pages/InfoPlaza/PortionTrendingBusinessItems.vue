@@ -208,98 +208,13 @@
             </tbody>
           </table>
         </div>
-        <!-- 페이지네이션 -->
-        <div class="py-4 px-6 mt-3">
-          <div
-            class="row align-items-center justify-content-center text-center"
-          >
-            <div class="col-md-12 d-flex flex-column align-items-center">
-              <!-- Pagination -->
-              <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-spaced gap-1">
-                  <!-- First Page Button -->
-                  <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === 1 }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(1)"
-                    >
-                      <i class="fa-solid fa-angles-left"></i>
-                    </a>
-                  </li>
-                  <!-- Previous Page Button -->
-                  <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === 1 }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(currentPage - 1)"
-                    >
-                      <i class="fa-solid fa-angle-left"></i>
-                    </a>
-                  </li>
-                  <!-- Ellipsis -->
-                  <li v-if="currentPage >= 7" class="page-item disabled">
-                    <span class="page-link">...</span>
-                  </li>
-                  <!-- Page Numbers -->
-                  <li
-                    v-for="page in visiblePages"
-                    :key="page"
-                    class="page-item"
-                    :class="{ active: currentPage === page }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(page)"
-                    >
-                      {{ page }}
-                    </a>
-                  </li>
-                  <!-- Ellipsis -->
-                  <li
-                    v-if="currentPage <= totalPages - 10"
-                    class="page-item disabled"
-                  >
-                    <span class="page-link">...</span>
-                  </li>
-                  <!-- Next Page Button -->
-                  <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === totalPages }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(currentPage + 1)"
-                    >
-                      <i class="fa-solid fa-angle-right"></i>
-                    </a>
-                  </li>
-                  <!-- Last Page Button -->
-                  <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === totalPages }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(totalPages)"
-                    >
-                      <i class="fa-solid fa-angles-right"></i>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
+        <!-- 페이지네이션 컴포넌트 -->
+        <PaginationComponent
+          :current-page="currentPage"
+          :total-items="totalItems"
+          :items-per-page="itemsPerPage"
+          @page-changed="handlePageChange"
+        />
       </div>
     </div>
   </div>
@@ -307,104 +222,37 @@
 
 <script setup>
 import InfoPlazaHeader from '@/components/infoplaza/InfoPlazaHeader.vue';
+import PaginationComponent from '@/components/infoplaza/pagination.vue';
 import { ref, computed } from 'vue';
-import axios from 'axios';
-
-// 페이지네이션 관련 변수
-const currentPage = ref(1); // 현재 페이지
-const itemsPerPage = ref(20); // 한 페이지당 아이템 수
-
-const totalItems = computed(() => dataList.value.length); // 전체 아이템 수
-const totalPages = computed(() =>
-  Math.ceil(totalItems.value / itemsPerPage.value)
-); // 전체 페이지 수
-const paginatedData = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value;
-  return dataList.value.slice(start, start + itemsPerPage.value); // 현재 페이지에 표시할 데이터
-});
-const visiblePages = computed(() => {
-  const pages = [];
-  const maxVisiblePages = 10; // 한 번에 보여줄 최대 페이지 수
-  const startPage = Math.max(1, currentPage.value - 5);
-
-  const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages.value);
-
-  for (let i = startPage; i <= endPage; i++) {
-    pages.push(i);
-  }
-  return pages;
-});
-
-// 필터링 변수
-const selectedService = ref('전체');
-const searchInput = ref('');
+import { usePagination } from '@/stores/businessItem.js'; // usePagination 가져오기
 
 const BASEURI = '/api/infoPlaza/businessItem';
-
-// 필터링된 전체 데이터 리스트
-const dataList = ref([]);
-
-// 데이터 리스트 가져오는 함수
-const bringDataList = async () => {
-  try {
-    // Best 인기 업종 - 전체
-    const response = await axios.get(BASEURI + '/getFilteredPortionList', {
-      params: {
-        service: selectedService.value,
-        input: searchInput.value,
-      }, // 선택된 필터링 값을 쿼리 파라미터로 전송
-    });
-    if (response.status === 200) {
-      dataList.value = response.data;
-      // console.log(dataList.value);
-    } else {
-      console.log('데이터 조회 실패');
-    }
-  } catch (error) {
-    console.log('에러발생 :' + error);
-  }
-};
+const {
+  dataList,
+  selectedService,
+  searchInput,
+  bringDataList,
+  refreshIcon,
+  currentPage,
+  itemsPerPage,
+  totalItems,
+  paginatedData,
+  handlePageChange,
+} = usePagination(BASEURI);
 
 // '서비스업종' 필터링 함수
-const onServiceChange = (event) => {
+const handleServiceChange = (event) => {
   selectedService.value = event.target.value;
-  bringDataList();
+  bringDataList('/getFilteredPortionList'); // 엔드포인트 전달
 };
 
 // '검색' 필터링 함수
-const changeInputData = (event) => {
-  bringDataList();
+const handleSearchInputChange = (event) => {
+  bringDataList('/getFilteredPortionList'); // 엔드포인트 전달
 };
 
-// 페이지 변경 메소드
-const changePage = (page) => {
-  if (page < 1 || page > totalPages.value) return;
-  currentPage.value = page;
-};
-
-const isSpinning = ref(false);
-// 리셋 버튼 함수
-const refreshIcon = async () => {
-  try {
-    // Best 인기 업종 - 전체
-    isSpinning.value = !isSpinning.value;
-    const response = await axios.get(BASEURI + '/getPortion');
-    setTimeout(() => {
-      isSpinning.value = false; // 회전 후 원래 상태로 돌아오게 함
-      selectedService.value = '전체';
-      searchInput.value = '';
-    }, 500); // 애니메이션 시간에 맞춰 0.5초 후 해제
-    if (response.status === 200) {
-      dataList.value = response.data;
-    } else {
-      console.log('데이터 조회 실패');
-    }
-  } catch (error) {
-    console.log('에러발생 :' + error);
-  }
-};
-
-bringDataList();
+// 초기 데이터 로딩
+bringDataList('/getFilteredPortionList');
 </script>
 
 <style scoped>
