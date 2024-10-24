@@ -33,7 +33,7 @@
               class="form-select round-corner"
               aria-label="Default select example"
               @change="onServiceChange"
-              v-model="selectedService"
+              v-model="handleServiceChange"
             >
               <option value="전체" selected disabled hidden>서비스 업종</option>
               <option value="전체">전체</option>
@@ -110,7 +110,7 @@
                 class="form-control form-control-lg"
                 placeholder="원하시는 키워드를 입력하세요."
                 v-model="searchInput"
-                @keydown.enter="changeInputData"
+                @keydown.enter="handleSearchInputChange"
                 style="
                   border: none;
                   border-bottom: 2px solid #ced4da;
@@ -121,7 +121,7 @@
                 type="button"
                 class="btn btn-icon btn-ghost fs-lg text-bo border-0 position-absolute top-0 end-0 rounded-circle mt-1 me-1"
                 aria-label="Search button"
-                @click="changeInputData"
+                @click="handleSearchInputChange"
               >
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>

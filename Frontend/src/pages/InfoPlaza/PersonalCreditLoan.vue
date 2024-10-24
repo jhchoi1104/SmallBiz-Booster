@@ -2,122 +2,13 @@
   <div>
     <InfoPlazaHeader />
     <div class="container mw-screen-xl">
-      <div class="row">
-        <ul
-          class="nav nav-tabs custom justify-content-center"
-          id="myTab"
-          role="tablist"
-        >
-          <li class="nav-item">
-            <RouterLink
-              class="nav-link active"
-              to="/infoPlaza/personalCreditLoan"
-              ><h4>개인신용</h4></RouterLink
-            >
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/infoPlaza/jeonseLoan"
-              ><h4>전세자금</h4></RouterLink
-            >
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/infoPlaza/mortgageLoan"
-              ><h4>주택담보</h4></RouterLink
-            >
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/infoPlaza/governmentFund"
-              ><h4>정책자금</h4></RouterLink
-            >
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/infoPlaza/KBLoan"
-              ><h4>국민은행</h4></RouterLink
-            >
-          </li>
-        </ul>
-      </div>
+      <LoanHeader activeTab="personalCreditLoan" />
       <!-- Best 금리상품 title-->
-      <div class="d-flex justify-content-center align-items-center mt-5">
-        <div class="row">
-          <div class="d-flex align-items-center mb-6">
-            <img
-              src="@/assets/img/infoplaza/thumbsUp.png"
-              alt=""
-              style="height: auto; max-height: 30px"
-            />
-            <h2 class="ms-2" style="font-weight: 700">BEST 금리 상품</h2>
-          </div>
-        </div>
-      </div>
-      <div class="card mb-10 p-4" style="background-color: #f6f4f9">
-        <!-- Best 금리상품 내용-->
-        <div class="row">
-          <!-- 카드 여러 개 -->
-          <div class="col-xl-3" v-for="(item, index) in best4List" :key="index">
-            <RouterLink
-              :to="`/infoPlaza/personalCreditLoan/personalCreditLoanDetail/${item.id}`"
-            >
-              <div class="card card-xl-stretch h-100 hover-card">
-                <div
-                  class="card-body pt-5 d-flex flex-column justify-content-between"
-                >
-                  <div>
-                    <div class="d-flex flex-stack flex-wrap">
-                      <span
-                        class="fs-3 text-gray-500 pe-2"
-                        style="font-weight: 500"
-                      >
-                        <div class="row mb-3" style="height: 70px">
-                          <div class="col-4 d-flex align-items-center">
-                            <img
-                              :src="'/images/banklogo/' + item.korCoNm + '.png'"
-                              alt=""
-                              style="width: 100px"
-                            />
-                          </div>
-                          <div class="col-8 d-flex align-items-center">
-                            <!-- Change align-items to center -->
-                            <span
-                              class="fs-3 text-gray-500 fw-bolder pe-2 text-left"
-                            >
-                              {{ item.korCoNm }}
-                            </span>
-                          </div>
-                        </div>
-                        <div class="d-flex flex-stack flex-wrap">
-                          <span
-                            class="fs-3 text-gray-500 pe-2"
-                            style="font-weight: 500"
-                          >
-                            {{ item.finPrdtNm }}
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                    <div class="carousel-inner pt-6">
-                      <div class="carousel-item active">
-                        <div class="carousel-wrapper">
-                          <div class="d-flex flex-column flex-grow-1">
-                            <!-- 콘텐츠 추가 가능 -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 금리 -->
-                  <div
-                    class="d-flex justify-content-end align-items-end ms-auto"
-                  >
-                    <p class="fs-6 text-gray-600 mb-1">금리</p>
-                    <p class="h2 fw-bold mb-0 ms-2">{{ item.crdtGradAvg }} %</p>
-                  </div>
-                </div>
-              </div>
-            </RouterLink>
-          </div>
-        </div>
-      </div>
+      <BestLoanCard
+        :best4List="best4List"
+        loanType="personalCreditLoan"
+        crdtGradAvgProp="crdtGradAvg"
+      />
 
       <div class="row mb-4 d-flex justify-content-end">
         <!-- d-flex 및 justify-content-end 추가 -->
@@ -360,7 +251,9 @@
 import { ref } from 'vue';
 import { useLoan } from '@/stores/loan.js';
 import PaginationComponent from '@/components/infoplaza/pagination.vue';
-import { usePagination } from '@/stores/businessItem.js'; // usePagination 가져오기
+import InfoPlazaHeader from '@/components/infoplaza/InfoPlazaHeader.vue';
+import LoanHeader from '@/components/infoplaza/LoanHeader.vue';
+import BestLoanCard from '@/components/infoplaza/BestLoanCard.vue';
 
 const BASEURI = '/api/infoPlaza/loan';
 const {

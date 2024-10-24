@@ -4,6 +4,7 @@ import axios from 'axios';
 export function useLoan(BASEURI) {
   const selectedBank = ref('전체');
   const selectedType = ref('전체');
+  const selectedRepay = ref('전체');
   const searchInput = ref('');
   const dataList = ref([]);
   const best4List = ref([]);
@@ -99,6 +100,7 @@ export function useLoan(BASEURI) {
     selectedBank,
     selectedType,
     searchInput,
+    selectedRepay,
     dataList,
     best4List,
     currentPage,
