@@ -2,120 +2,13 @@
   <div>
     <InfoPlazaHeader />
     <div class="container mw-screen-xl">
-      <div class="row">
-        <ul
-          class="nav nav-tabs custom justify-content-center"
-          id="myTab"
-          role="tablist"
-        >
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/infoPlaza/personalCreditLoan"
-              ><h4>개인신용</h4></RouterLink
-            >
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link active" to="/infoPlaza/jeonseLoan"
-              ><h4>전세자금</h4></RouterLink
-            >
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/infoPlaza/mortgageLoan"
-              ><h4>주택담보</h4></RouterLink
-            >
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/infoPlaza/governmentFund"
-              ><h4>정책자금</h4></RouterLink
-            >
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/infoPlaza/KBLoan"
-              ><h4>국민은행</h4></RouterLink
-            >
-          </li>
-        </ul>
-      </div>
+      <LoanHeader activeTab="jeonseLoan" />
       <!-- Best 금리상품 title-->
-      <div class="d-flex justify-content-center align-items-center mt-5">
-        <div class="row">
-          <div class="d-flex align-items-center mb-6">
-            <img
-              src="@/assets/img/infoplaza/thumbsUp.png"
-              alt=""
-              style="height: auto; max-height: 30px"
-            />
-            <h2 class="ms-2" style="font-weight: 700">BEST 금리 상품</h2>
-          </div>
-        </div>
-      </div>
-      <div class="card mb-10 p-4" style="background-color: #f6f4f9">
-        <!-- Best 금리상품 내용-->
-        <div class="row">
-          <!-- 카드 여러 개 -->
-          <div class="col-xl-3" v-for="(item, index) in best4List" :key="index">
-            <RouterLink
-              :to="`/infoPlaza/jeonseLoan/jeonseLoanDetail/${item.id}`"
-            >
-              <div class="card card-xl-stretch h-100 hover-card">
-                <div
-                  class="card-body pt-5 d-flex flex-column justify-content-between"
-                >
-                  <div>
-                    <div class="d-flex flex-stack flex-wrap">
-                      <span
-                        class="fs-3 text-gray-500 pe-2"
-                        style="font-weight: 500"
-                      >
-                        <div class="row mb-3" style="height: 70px">
-                          <div class="col-4 d-flex align-items-center">
-                            <img
-                              :src="'/images/banklogo/' + item.korCoNm + '.png'"
-                              alt=""
-                              style="width: 100px"
-                            />
-                          </div>
-                          <div class="col-8 d-flex align-items-center">
-                            <!-- Change align-items to center -->
-                            <span
-                              class="fs-3 text-gray-500 fw-bolder pe-2 text-left"
-                            >
-                              {{ item.korCoNm }}
-                            </span>
-                          </div>
-                        </div>
-                        <div class="d-flex flex-stack flex-wrap">
-                          <span
-                            class="fs-3 text-gray-500 pe-2"
-                            style="font-weight: 500"
-                          >
-                            {{ item.finPrdtNm }}
-                          </span>
-                        </div>
-                      </span>
-                    </div>
-                    <div class="carousel-inner pt-6">
-                      <div class="carousel-item active">
-                        <div class="carousel-wrapper">
-                          <div class="d-flex flex-column flex-grow-1">
-                            <!-- 콘텐츠 추가 가능 -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 금리 -->
-                  <div
-                    class="d-flex justify-content-end align-items-end ms-auto"
-                  >
-                    <p class="fs-6 text-gray-600 mb-1">금리</p>
-                    <p class="h2 fw-bold mb-0 ms-2">{{ item.lendRateAvg }} %</p>
-                  </div>
-                </div>
-              </div>
-            </RouterLink>
-          </div>
-        </div>
-      </div>
+      <BestLoanCard
+        :best4List="best4List"
+        loanType="jeonseLoan"
+        crdtGradAvgProp="lendRateAvg"
+      />
 
       <div class="row mb-4 d-flex justify-content-end">
         <!-- d-flex 및 justify-content-end 추가 -->
@@ -340,120 +233,44 @@
         </div>
 
         <!-- 페이지네이션 -->
-        <div class="py-4 px-6 mt-3">
-          <div
-            class="row align-items-center justify-content-center text-center"
-          >
-            <div class="col-md-12 d-flex flex-column align-items-center">
-              <!-- Pagination -->
-              <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-spaced gap-1">
-                  <!-- First Page Button -->
-                  <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === 1 }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(1)"
-                    >
-                      <i class="fa-solid fa-angles-left"></i>
-                    </a>
-                  </li>
-                  <!-- Previous Page Button -->
-                  <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === 1 }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(currentPage - 1)"
-                    >
-                      <i class="fa-solid fa-angle-left"></i>
-                    </a>
-                  </li>
-                  <!-- Ellipsis -->
-                  <li v-if="currentPage >= 7" class="page-item disabled">
-                    <span class="page-link">...</span>
-                  </li>
-                  <!-- Page Numbers -->
-                  <li
-                    v-for="page in visiblePages"
-                    :key="page"
-                    class="page-item"
-                    :class="{ active: currentPage === page }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(page)"
-                    >
-                      {{ page }}
-                    </a>
-                  </li>
-                  <!-- Ellipsis -->
-                  <li
-                    v-if="currentPage <= totalPages - 10"
-                    class="page-item disabled"
-                  >
-                    <span class="page-link">...</span>
-                  </li>
-                  <!-- Next Page Button -->
-                  <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === totalPages }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(currentPage + 1)"
-                    >
-                      <i class="fa-solid fa-angle-right"></i>
-                    </a>
-                  </li>
-                  <!-- Last Page Button -->
-                  <li
-                    class="page-item"
-                    :class="{ disabled: currentPage === totalPages }"
-                  >
-                    <a
-                      class="page-link"
-                      href="#"
-                      @click.prevent="changePage(totalPages)"
-                    >
-                      <i class="fa-solid fa-angles-right"></i>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
+        <PaginationComponent
+          :current-page="currentPage"
+          :total-items="totalItems"
+          :items-per-page="itemsPerPage"
+          @page-changed="handlePageChange"
+        />
       </div>
     </div>
   </div>
 </template>
 <script setup>
 import InfoPlazaHeader from '@/components/infoplaza/InfoPlazaHeader.vue';
-import PersonalLoanHeader from '@/components/infoplaza/PersonalLoanHeader.vue';
+import PaginationComponent from '@/components/infoplaza/pagination.vue';
+import LoanHeader from '@/components/infoplaza/LoanHeader.vue';
+import { useLoan } from '@/stores/loan.js';
+import BestLoanCard from '@/components/infoplaza/BestLoanCard.vue';
 import { ref, computed } from 'vue';
 import axios from 'axios';
+
+const BASEURI = '/api/infoPlaza/loan';
+const {
+  currentPage,
+  itemsPerPage,
+  totalItems,
+  totalPages,
+  paginatedDataList,
+  dataList,
+  changePage,
+  formatDate,
+  formatEndDate,
+  handlePageChange,
+} = useLoan(BASEURI);
 
 const selectedBank = ref('전체');
 const selectedRepay = ref('전체');
 const selectedType = ref('전체');
 const searchInput = ref('');
-const dataList = ref([]);
 const best4List = ref([]);
-
-const currentPage = ref(1);
-const itemsPerPage = 6;
-const totalItems = ref(16);
-const totalPages = computed(() => Math.ceil(totalItems.value / itemsPerPage));
-
-const BASEURI = '/api/infoPlaza/loan';
 
 // 데이터 리스트 가져오는 함수
 const bringLoanList = async () => {
@@ -517,49 +334,6 @@ const changeInputData = (event) => {
   bringLoanList();
 };
 
-// 현재 페이지에 해당하는 데이터만 반환하는 계산된 속성
-const paginatedDataList = computed(() => {
-  const startIndex = (currentPage.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  return dataList.value.slice(startIndex, endIndex);
-});
-
-// 페이지 전환 함수
-function changePage(page) {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page;
-  }
-}
-
-const visiblePages = computed(() => {
-  const pages = [];
-  for (let i = 1; i <= totalPages.value; i++) {
-    pages.push(i);
-  }
-  return pages;
-});
-
-// 날짜 형식 변환
-const formatDate = (date) => {
-  const dateString = String(date);
-  if (dateString.length !== 8) {
-    return dateString;
-  }
-
-  const year = dateString.substring(0, 4);
-  const month = dateString.substring(4, 6);
-  const day = dateString.substring(6, 8);
-
-  return `${year.substring(2)}/${month}/${day}`;
-};
-
-// dclsEndDay가 null일 경우를 처리하는 함수
-const formatEndDate = (date) => {
-  if (date === null) {
-    return '';
-  }
-  return formatDate(date);
-};
 const isSpinning = ref(false);
 // 데이터 리스트 가져오는 함수
 const bringTotalList = async () => {

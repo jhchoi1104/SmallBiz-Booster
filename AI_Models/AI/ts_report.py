@@ -897,7 +897,7 @@ async def fetch_all_data(page_size):
 
 # 메인 실행 함수
 if __name__ == "__main__":
-    simulation_response=fetch_simulation_response_by_id("670c78ddc9263c1f31d2089b")
+    simulation_response=fetch_simulation_response_by_id("670f168612fcd26045bb6570")
     user_data=update_user_data_from_response(simulation_response)
 
     if simulation_response:

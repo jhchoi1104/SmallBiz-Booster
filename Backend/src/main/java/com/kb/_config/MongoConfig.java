@@ -25,18 +25,9 @@ public class MongoConfig {
     @Value("${spring.data.mongodb.database}")
     private String database;
 
-    @Value("${spring.data.mongodb.username}")
-    private String username;
-
-    @Value("${spring.data.mongodb.password}")
-    private String password;
-
-    @Value("${spring.data.mongodb.authentication-database}")
-    private String authenticationDatabase;
-
     @Bean
     public MongoClient mongoClient() {
-        String uri = String.format("mongodb://%s:%s@%s:%d/%s?authSource=%s", username, password, host, port, database, authenticationDatabase);
+        String uri = String.format("mongodb://%s:%d/%s", host, port, database);
         return MongoClients.create(uri);
     }
 

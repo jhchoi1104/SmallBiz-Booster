@@ -1,97 +1,10 @@
 <template>
   <div>
     <InfoPlazaHeader />
-    <div class="row">
-      <ul
-        class="nav nav-tabs custom justify-content-center"
-        id="myTab"
-        role="tablist"
-      >
-        <li class="nav-item">
-          <RouterLink class="nav-link" to="/infoPlaza/personalCreditLoan"
-            ><h4>개인신용</h4></RouterLink
-          >
-        </li>
-        <li class="nav-item">
-          <RouterLink class="nav-link" to="/infoPlaza/jeonseLoan"
-            ><h4>전세자금</h4></RouterLink
-          >
-        </li>
-        <li class="nav-item">
-          <RouterLink class="nav-link" to="/infoPlaza/mortgageLoan"
-            ><h4>주택담보</h4></RouterLink
-          >
-        </li>
-        <li class="nav-item">
-          <RouterLink class="nav-link" to="/infoPlaza/governmentFund"
-            ><h4>정책자금</h4></RouterLink
-          >
-        </li>
-        <li class="nav-item">
-          <RouterLink class="nav-link active" to="/infoPlaza/KBLoan"
-            ><h4>국민은행</h4></RouterLink
-          >
-        </li>
-      </ul>
-    </div>
     <div class="container mw-screen-xl">
+      <LoanHeader activeTab="KBLoan" />
       <!-- Best 금리상품 title-->
-      <div class="d-flex justify-content-center align-items-center mt-5">
-        <div class="row">
-          <div class="d-flex align-items-center mb-6">
-            <img
-              src="@/assets/img/infoplaza/thumbsUp.png"
-              alt=""
-              style="height: auto; max-height: 30px"
-            />
-            <h2 class="ms-2" style="font-weight: 700">BEST 금리 상품</h2>
-          </div>
-        </div>
-      </div>
-      <div class="card mb-10 p-4" style="background-color: #f6f4f9">
-        <!-- Best 금리상품 내용-->
-        <div class="row">
-          <!-- 카드 여러 개 -->
-          <div class="col-xl-3" v-for="(item, index) in best4List" :key="index">
-            <RouterLink :to="`/infoPlaza/KBLoan/${item.loanKey}`">
-              <div class="card card-xl-stretch h-100 hover-card">
-                <div
-                  class="card-body pt-5 d-flex flex-column justify-content-between"
-                >
-                  <div>
-                    <div class="d-flex flex-stack flex-wrap">
-                      <span
-                        class="fs-3 text-gray-500 pe-2"
-                        style="font-weight: 500"
-                      >
-                        {{ item.productName }}
-                      </span>
-                    </div>
-                    <div class="carousel-inner pt-6">
-                      <div class="carousel-item active">
-                        <div class="carousel-wrapper">
-                          <div class="d-flex flex-column flex-grow-1">
-                            <!-- 콘텐츠 추가 가능 -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 금리 -->
-                  <div
-                    class="d-flex justify-content-end align-items-end ms-auto"
-                  >
-                    <p class="fs-6 text-gray-600 mb-1">금리</p>
-                    <p class="h2 fw-bold mb-0 ms-2">
-                      {{ item.lowestInterestRate }}%
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </RouterLink>
-          </div>
-        </div>
-      </div>
+      <BestLoanCard2 :itemList="best4List" linkType="KBLoan" />
 
       <div class="row mb-4 d-flex justify-content-end">
         <!-- d-flex 및 justify-content-end 추가 -->
@@ -320,7 +233,8 @@
 </template>
 <script setup>
 import InfoPlazaHeader from '@/components/infoplaza/InfoPlazaHeader.vue';
-import PersonalLoanHeader from '@/components/infoplaza/PersonalLoanHeader.vue';
+import LoanHeader from '@/components/infoplaza/LoanHeader.vue';
+import BestLoanCard2 from '@/components/infoplaza/BestLoanCard2.vue';
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 
