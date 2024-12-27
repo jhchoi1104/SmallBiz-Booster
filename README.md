@@ -31,8 +31,9 @@
 ---
 
 ## 동작 영상
-![Simulation Video](assets/videos/simulationVideo.gif)
-![InfoFlaza Video](assets/videos/infoFlazaVideo.gif)
+| 시뮬레이션 동작 영상                       | 정보광장 동작 영상                        |
+|-----------------------------------------|-----------------------------------------|
+| ![Simulation Video](assets/videos/simulationVideo.gif) | ![InfoFlaza Video](assets/videos/infoFlazaVideo.gif) |
 
 ---
 
