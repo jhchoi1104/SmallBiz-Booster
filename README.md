@@ -6,8 +6,8 @@
 
 - [프로젝트 기간](#프로젝트-기간)
 - [프로젝트 소개](#프로젝트-소개)
-- [주요 기능](#주요-기능)
 - [동작 영상](#동작-영상)
+- [주요 기능](#주요-기능)
 - [기술 스택](#기술-스택)
 - [사용 API](#사용-api)
 - [시스템 아키텍처](#시스템-아키텍처)
@@ -27,6 +27,13 @@
 ![Background](assets/images/background.png)
 
 ![Goal](assets/images/goal.png)
+
+---
+
+## 동작 영상
+
+| <video src="assets/videos/simulationVideo.mp4" controls></video> | <video src="assets/videos/infoFlaza.mp4" controls></video> |
+
 
 ---
 
@@ -100,12 +107,6 @@
     <td align="center">회원 정보 CRUD</td>
   </tr>
 </table>
-
----
-
-## 동작 영상
-
-시뮬레이션 동작 영상1, 시뮬레이션 동작 영상2 - 1줄
 
 ---
 
