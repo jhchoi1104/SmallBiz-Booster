@@ -111,30 +111,37 @@
 
 ## 기술 스택
 
-<img src="assets/images/skillStack.png" width="600"/>
+<div align="center">
+  <img src="assets/images/skillStack.png" width="600"/>
+</div>
 
 ---
 
 ## 사용 API
 
+<div align="center">
 <img src="assets/images/usedAPI.png" width="600"/>
+</div>
 
 ---
 
 ## 시스템 아키텍처
 
+<div align="center">
 <img src="assets/images/architecture.png" width="600"/>
-
+</div>
 ---
 
 ## ERD 설계
 
+<div align="center">
 <img src="assets/images/erd.png" width="600"/>
-
+</div>
 ---
 
 ## 업무 분담
 
+<div align="center">
 <img src="assets/images/role.png" width="600"/>
-
+</div>
 
