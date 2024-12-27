@@ -34,7 +34,6 @@
 ![Simulation Video](assets/videos/simulationVideo.mp4)
 ![InfoFlaza Video](assets/videos/infoFlaza.mp4)
 
-
 ---
 
 ## 주요 기능
