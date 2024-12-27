@@ -31,8 +31,8 @@
 ---
 
 ## 동작 영상
-
-| <video src="assets/videos/simulationVideo.mp4" controls></video> | <video src="assets/videos/infoFlaza.mp4" controls></video> |
+![Simulation Video](assets/videos/simulationVideo.mp4)
+![InfoFlaza Video](assets/videos/infoFlaza.mp4)
 
 
 ---
