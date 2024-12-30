@@ -131,6 +131,7 @@
 <div align="center">
 <img src="assets/images/architecture.png" width="600"/>
 </div>
+
 ---
 
 ## ERD 설계
@@ -138,6 +139,7 @@
 <div align="center">
 <img src="assets/images/erd.png" width="600"/>
 </div>
+
 ---
 
 ## 업무 분담
